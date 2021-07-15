@@ -1,8 +1,9 @@
 
 import './App.css';
 import User from './components/users/User';
+import {useState} from 'react';
 
-let users=[
+let usersList=[
       {name:'vasya', age:31, status:false},
       {name:'petya', age:30, status:true},
       {name:'kolya', age:29, status:true},
@@ -19,18 +20,23 @@ let users=[
 
 
 function App() {
+      let [users,setUsers] = useState(usersList);
+      const deleteUser = () => {
+            users.pop();
+            setUsers([...users]);
+      };
+
+
   return (
     <div>
           {
                users.map((value,index) =>
                    <User key={index}
-                    name={value.name}
-                    age={value.age}
-                    status={value.status}
+                         {...value}
                    />
                 )
-
           }
+          <button onClick={deleteUser}>delete user</button>
     </div>
   );
 }
